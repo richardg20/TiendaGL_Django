@@ -1,0 +1,255 @@
+{%extends 'base.html'%}
+
+
+{%block content%}
+
+{%load static%}
+<div class="album py-5 bg-light">
+    <div class="container">
+      <h2 class="mb-5" style="text-align: center;"> Productos ✨</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="{%static 'images/lou.jpg'%}" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+           
+            <div class="card-body">
+              <p class="card-text">The Last of Us Remastered Standard Edition PS4 Físico</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group ">
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{%url 'dproductos' %}">Ver</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+
+                <p>
+                <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                      class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                      aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                      aria-hidden="true">23.990</span>
+                  </span></div>
+                </p>
+
+                <small class="text-muted"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQIx10GWXiChoW7gn6ijDgwCBDsBx-Ch7ec8npNL4ORzok_ImxG58PA13dFvnJOCBKJBaK5rnm6GfsfVn9Gk2LYkmDuW0PwJmQydttslUW1MSbLrPSmNiTz&usqp=CAE" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+    
+            <div class="card-body">
+              <p class="card-text">Minecraft PlayStation Edition PS4 Físico</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a class="btn btn-sm btn-outline-secondary" href="#">Ver</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+
+                <p>
+                <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                      class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                      aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                      aria-hidden="true">12.990</span>
+                  </span></div>
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://falabella.scene7.com/is/image/Falabella/gsc_117310387_1733050_1?wid=1500&hei=1500&qlt=70" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+    
+            <div class="card-body">
+              <p class="card-text"> Among Us Impostor Edition PS4 Físico</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+                <p>
+                  <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                        class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                        aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                        aria-hidden="true">52.990</span>
+                    </span></div>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://media.spdigital.cl/thumbnails/products/_wjra1iu_4a1a5036_thumbnail_512.jpg" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">Xbox Series S Microsoft</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+                <p>
+                  <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                        class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                        aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                        aria-hidden="true">340.000</span>
+                    </span></div>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQFQXskzkDO52Zenw4VkuicTMkCruAmoOqTSmmbWMKhXMAr9J5Y9zZQaYMnbTV2pWSAyxEpHvlRQ0CRTB8-3w93DMuthzN-6GxWTd-K6viKWihqhRDBMrgH&usqp=CAE" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">Call Of Duty Modern Warfare II Xbox One/Series Físico</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+                <p>
+                  <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                        class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                        aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                        aria-hidden="true">40.000</span>
+                    </span></div>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT-CLgqXBAOsxPmOibqUI4VKu5ZKl8XFJSWXDAR7QezbUiUxnbUnEl8MTtq7IoFllD12b6UERI5mw8DirQxnoSYZleU-WXpZaPJsEHRCD1NuAHETaA68_4y2w&usqp=CAE" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+            
+            <div class="card-body">
+              <p class="card-text">Halo Infinity Steelboock Xbox One/Series Físico
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+                <p>
+                  <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                        class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                        aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                        aria-hidden="true">49.900</span>
+                    </span></div>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://mercado.ripleylabs.com/wp-content/uploads/2022/12/2000363222529-2.jpeg" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">Nintendo Switch Neon v2</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+              <p>  
+                <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                  class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                  aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                  aria-hidden="true">290.000</span>
+              </span></div>
+            </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcS-7Vz2T0_nmxKwY3k8W8tlrOiGPFcVZogBkSeeYH-JbbYjiZcuvZekKmhTefESD00XehhUvhDZf0i-hSn4JwgOE3c_fZM13N6Ke6KDIgBI&usqp=CAE" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">Mario Kart 8 Deluxe Ninteno Switch Físico</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+                <p>  
+                  <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                    class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                    aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                    aria-hidden="true">39.000</span>
+                </span></div>
+              </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+
+            <div class="bd-placeholder-img" style="text-align:center"> 
+              <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTORMhexgNjawgYG-L0r-fPG0DYvTIs5GLOgOjcg-XgmHJwSZoEzWc1gnhPIK2dVySPUPnQoou00MsmQj4kI-xek9R5GgQCcb1AtdxrLCs&usqp=CAE" style="object-fit:scale-down;" width="230" height="230">
+            </div>
+      
+            <div class="card-body">
+              <p class="card-text">Super Mario Maker 2 Nintendo Switch Físico</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary add-to-cart" href="#" data-id="1">Añadir a carrito</a>
+                </div>
+                <p>  
+                  <div class="ui-pdp-price__second-line"><span itemprop="price" content="23990"><span
+                    class="andes-money-amount__currency-symbol" itemprop="priceCurrency"
+                    aria-hidden="true">$</span><span class="andes-money-amount__fraction"
+                    aria-hidden="true">39.000</span>
+                </span></div>
+              </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /END THE FEATURETTES -->
+
+  </div>
+
+  <script src="{%static 'js/carrito.js' %}"></script>
+
+{%endblock%}
