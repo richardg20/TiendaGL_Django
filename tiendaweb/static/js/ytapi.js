@@ -13,10 +13,9 @@ $(document).ready(function() {
 
  
     function createPlayer() {
-      
-        var videoId = 'cb6JbxZayVA';
 
-   
+        console.log('ID del video api:', videoId);
+  
         player = new YT.Player('player', {
             height: '360',
             width: '640',
@@ -29,7 +28,6 @@ $(document).ready(function() {
 
 
     function onPlayerReady(event) {
-      
         event.target.playVideo();
     }
 });
