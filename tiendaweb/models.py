@@ -19,3 +19,38 @@ class Producto(models.Model):
     
     class Meta:
         db_table = 'tiendaweb_producto'
+
+class Cliente(models.Model):
+    rut = models.CharField(primary_key=True, max_length=9)
+    nombre = models.CharField(max_length=200)
+    email = models.CharField(max_length=100, blank=True, null=True)
+    direccion = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        db_table = 'tiendaweb_cliente'
+
+class Boleta(models.Model):
+    id = models.AutoField(primary_key=True)
+    total = models.CharField(max_length=7, default="0")
+    cant_productos = models.CharField(max_length=7, default="0")
+    rut_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id) 
+    
+    class Meta:
+        db_table = 'tiendaweb_boleta'
+
+class Detalle_Boleta(models.Model):
+    id = models.AutoField(primary_key=True)
+    producto = models.CharField(max_length=500)
+    id_boleta = models.ForeignKey(Boleta, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)
+    
+    class Meta:
+        db_table = 'tiendaweb_detalle_boleta'
