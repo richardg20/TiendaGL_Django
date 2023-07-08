@@ -19,6 +19,8 @@ from django.urls import path
 from tiendaweb import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
+from tiendaweb.views import LoginSystem 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +29,21 @@ urlpatterns = [
     path('dproductos/<int:id>',views.dproductos, name="dproductos"),
     path('registro/', views.registro, name='registro'),
     path('venta/', views.venta, name='venta'),
-    path("confirmar-venta/", views.confirmar_venta, name="confirmar_venta")
+    path("confirmar-venta/", views.confirmar_venta, name="confirmar_venta"),
+    path('administrador/', views.admin, name='administrador'),
+
+    path('administrador/add', views.aproducto, name='aproducto'),
+    path('administrador/adds', views.add_producto, name='add_producto'),
+    path('administrador/eliminar/<int:producto_id>/', views.eliminar_producto, name='eliminar_producto'),
+
+    path('administrador/cliente', views.acliente, name='acliente'),
+    path('administrador/cliente/add', views.addcliente, name='addcliente'),
+    path('administrador/cliente/adds', views.add_cliente, name='add_cliente'),
+    path('administrador/cliente/eliminar/<int:cliente_rut>/', views.eliminar_cliente, name='eliminar_cliente'),
+    path('administrador/cliente/modificar/<int:cliente_rut>/', views.alterclientes, name='modificar_cliente'),
+    path('administrador/cliente/modificar/<int:cliente_rut>/success', views.modclientes, name='mod_cliente'),
+
+    path('administrador/boleta', views.boletas, name='boletas'),    
+    path('login/', LoginSystem.as_view(), name='login'),
+
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

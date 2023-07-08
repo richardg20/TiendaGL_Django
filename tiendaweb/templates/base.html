@@ -78,23 +78,18 @@
             </div>
             <div class="offcanvas-body">
     
-              <form>
+              <form action="{%url 'login'%}" method="post">
+                {% csrf_token %}
                 <img class="mb-4" src="{%static 'images/image.png'%}" alt="" width="72" height="72" >
                 <h1 class="h3 mb-3 fw-normal">Ingrese sus datos</h1>
     
                 <div class="form-floating">
-                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                  <label for="floatingInput">Correo</label>
+                  <input type="text" class="form-control" id="username" name="username">
+                  <label for="floatingInput">Usuario</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <input type="password" class="form-control" id="password" name="password">
                   <label for="floatingPassword">Contraseña</label>
-                </div>
-    
-                <div class="checkbox mb-3">
-                  <label>
-                    <input type="checkbox" value="remember-me"> Recuérdame
-                  </label>
                 </div>
     
                 <button class="w-100 btn btn-lg btn-primary mb-1" type="submit">Entrar</button>
