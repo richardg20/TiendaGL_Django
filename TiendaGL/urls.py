@@ -30,7 +30,11 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),
     path('venta/', views.venta, name='venta'),
     path("confirmar-venta/", views.confirmar_venta, name="confirmar_venta"),
+
+    path('confirmar-venta/commit-pay/', views.commitpay, name="commit-pay"),
+
     path('administrador/', views.admin, name='administrador'),
+
 
     path('administrador/add', views.aproducto, name='aproducto'),
     path('administrador/adds', views.add_producto, name='add_producto'),
@@ -42,6 +46,8 @@ urlpatterns = [
     path('administrador/cliente/eliminar/<int:cliente_rut>/', views.eliminar_cliente, name='eliminar_cliente'),
     path('administrador/cliente/modificar/<int:cliente_rut>/', views.alterclientes, name='modificar_cliente'),
     path('administrador/cliente/modificar/<int:cliente_rut>/success', views.modclientes, name='mod_cliente'),
+
+    
 
     path('administrador/boleta', views.boletas, name='boletas'),    
     path('login/', LoginSystem.as_view(), name='login'),

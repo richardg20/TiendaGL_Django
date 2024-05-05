@@ -7,6 +7,16 @@ import json
 from .forms import MiFormulario
 from django.contrib.auth import views as auth_views
 
+from flask import render_template, request
+from transbank.error.transbank_error import TransbankError
+from transbank.webpay.webpay_plus.transaction import Transaction
+import random
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+import datetime as dt
+
+#from webpay_plus import bp
+
 
 # Create your views here.
 
@@ -37,10 +47,47 @@ def productos(request):
     return render(request, 'prod.html', context)
 
 def venta(request):
-    return render(request, 'venta.html')
+      return render(request, 'venta.html')
 
 
 def confirmar_venta(request):
+
+    print("Webpay Plus Transaction.create")
+    buy_order = str(random.randrange(1000000, 99999999))
+    session_id = str(random.randrange(1000000, 99999999))
+    amount = request.POST.get('totalv')
+
+    nombre_apellido = request.POST.get('firstName')
+    rut = request.POST.get('rut')
+    email = request.POST.get('email')
+    direccion = request.POST.get('address')
+    totalv = request.POST.get('totalv')
+    cantidad_productos = request.POST.get('cantidad_productos')
+    productos_list = json.loads(request.POST.get('productos_list'))
+
+    request.session['nombre'] = nombre_apellido
+    request.session['rut'] = rut
+    request.session['email'] = email
+    request.session['direccion'] = direccion
+    request.session['totalv'] = totalv
+    request.session['cantidad_productios'] = cantidad_productos
+    request.session['productos_list'] = productos_list
+
+
+    return_url = request.build_absolute_uri(location='commit-pay/')
+
+    print('buy_order: {0}'.format(buy_order))
+    print('session_id: {0}'.format(session_id))
+    print('amount: {0}'.format(amount))
+    print('return_url: {0}'.format(return_url))
+    print('request.headers: {0}'.format(request.headers))
+
+    response = (Transaction().create)(buy_order, session_id, amount, return_url) 
+    print('response: {0}'.format(response))
+    print('Token generado: {0}'.format(response['token']))
+
+    return render(request, 'inter.html', {'response': response, 'amount': amount})    
+
 
     if request.method == 'POST':
      
@@ -52,9 +99,8 @@ def confirmar_venta(request):
         cantidad_productos = request.POST.get('cantidad_productos')
         productos_list = json.loads(request.POST.get('productos_list'))
 
-
         cliente, created = Cliente.objects.get_or_create(rut=rut)
-      
+
         cliente.nombre = nombre_apellido
         cliente.email = email
         cliente.direccion = direccion
@@ -66,14 +112,91 @@ def confirmar_venta(request):
         for producto in productos_list:
             detalle = Detalle_Boleta(producto=producto, id_boleta=boleta)
             detalle.save()
-
+  
         return render(request, 'confirmacion.html')
     else:
         return HttpResponse('Error: Se requiere una solicitud POST')
+    
 
+@csrf_exempt 
+def commitpay(request):
+    print('commitpay')
+    print("request: {0}".format(request.POST))    
+    token = request.GET.get('token_ws')
 
-    return render(request, 'confirmacion.html')
+    print('TOKEEN')
+    print(token)
+    TBK_TOKEN = request.POST.get('TBK_TOKEN')
+    TBK_ID_SESION = request.POST.get('TBK_ID_SESION')
+    TBK_ORDEN_COMPRA = request.POST.get('TBK_ORDEN_COMPRA')
 
+    #TRANSACCIÓN REALIZADA
+    if TBK_TOKEN is None and TBK_ID_SESION is None and TBK_ORDEN_COMPRA is None and token is not None:
+
+        #APROBAR TRANSACCIÓN
+        transaction = Transaction()
+        response = transaction.commit(token=token)
+        #response = Transaction.commit(token=token)
+        print("response: {}".format(response)) 
+
+        status = response['status']
+        print("status: {0}".format(status))
+        response_code = response['response_code']
+        print("response_code: {0}".format(response_code)) 
+
+        #TRANSACCIÓN APROBADA
+        if status == 'AUTHORIZED' and response_code == 0:
+
+            state = ''
+            if response['status'] == 'AUTHORIZED':
+                state = 'Aceptado'
+            pay_type = ''
+            if response['payment_type_code'] == 'VD':
+                pay_type = 'Tarjeta de Débito'
+            amount = int(response['amount'])
+            amount = f'{amount:,.0f}'.replace(',', '.')
+            transaction_date = dt.datetime.strptime(response['transaction_date'], '%Y-%m-%dT%H:%M:%S.%fZ')
+            transaction_date = '{:%d-%m-%Y %H:%M:%S}'.format(transaction_date)
+            transaction_detail = {  'card_number': response['card_detail']['card_number'],
+                                    'transaction_date': transaction_date,
+                                    'state': state,
+                                    'pay_type': pay_type,
+                                    'amount': amount,
+                                    'authorization_code': response['authorization_code'],
+                                    'buy_order': response['buy_order'], }
+
+            nombre = request.session.get('nombre')
+            rut = request.session.get('rut')
+            email = request.session.get('email')
+            direccion = request.session.get('direccion')
+            totalv = request.session.get('totalv')
+            cantidad_productos= request.session.get('cantidad_productios')
+            productos_list = request.session.get('productos_list', [])
+
+            cliente, created = Cliente.objects.get_or_create(rut=rut)
+
+            cliente.nombre = nombre
+            cliente.email = email
+            cliente.direccion = direccion
+            cliente.save()
+
+            boleta = Boleta(total=totalv, cant_productos=cantidad_productos, rut_cliente=cliente)
+            boleta.save()
+
+            for producto in productos_list:
+                detalle = Detalle_Boleta(producto=producto, id_boleta=boleta)
+                detalle.save()
+
+            request.session.clear()
+            return render(request, 'confirmacion.html', {'transaction_detail': transaction_detail})
+        else:
+        #TRANSACCIÓN RECHAZADA            
+            return HttpResponse('ERROR EN LA TRANSACCIÓN, SE RECHAZA LA TRANSACCIÓN.')
+    else:
+    #TRANSACCIÓN CANCELADA            
+        return HttpResponse('ERROR EN LA TRANSACCIÓN, SE CANCELO EL PAGO.')
+
+    
 
 def admin(request):
     productos = Producto.objects.all()
@@ -117,6 +240,8 @@ def add_producto(request):
         return HttpResponse('Error: Se requiere una solicitud POST')
 
     return render(request, 'addpro.html')
+
+
 
 
 def eliminar_producto(request, producto_id):
