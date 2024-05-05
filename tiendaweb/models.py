@@ -38,6 +38,10 @@ class Boleta(models.Model):
     cant_productos = models.CharField(max_length=7, default="0")
     rut_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
+    fecha = models.CharField(max_length=30, default="--/--/--_--:--:--")
+    tipo_pago = models.CharField(max_length=30, default=" ")
+    nro_orden = models.CharField(max_length=100, default="0")
+
     def __str__(self):
         return str(self.id) 
     

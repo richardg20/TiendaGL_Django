@@ -152,7 +152,11 @@ def commitpay(request):
                 state = 'Aceptado'
             pay_type = ''
             if response['payment_type_code'] == 'VD':
-                pay_type = 'Tarjeta de Débito'
+                pay_type = 'T_Débito'
+            elif response['payment_type_code'] == 'VN':
+                pay_type = 'T_Crédito'
+            elif response['payment_type_code'] == 'VP':
+                pay_type = 'T_Prepago'    
             amount = int(response['amount'])
             amount = f'{amount:,.0f}'.replace(',', '.')
             transaction_date = dt.datetime.strptime(response['transaction_date'], '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -164,6 +168,7 @@ def commitpay(request):
                                     'amount': amount,
                                     'authorization_code': response['authorization_code'],
                                     'buy_order': response['buy_order'], }
+            
 
             nombre = request.session.get('nombre')
             rut = request.session.get('rut')
@@ -173,6 +178,8 @@ def commitpay(request):
             cantidad_productos= request.session.get('cantidad_productios')
             productos_list = request.session.get('productos_list', [])
 
+            nro_orden = response['authorization_code']
+
             cliente, created = Cliente.objects.get_or_create(rut=rut)
 
             cliente.nombre = nombre
@@ -180,7 +187,7 @@ def commitpay(request):
             cliente.direccion = direccion
             cliente.save()
 
-            boleta = Boleta(total=totalv, cant_productos=cantidad_productos, rut_cliente=cliente)
+            boleta = Boleta(total=totalv, cant_productos=cantidad_productos, rut_cliente=cliente, fecha=transaction_date,tipo_pago=pay_type, nro_orden=nro_orden)
             boleta.save()
 
             for producto in productos_list:
