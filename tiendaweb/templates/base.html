@@ -62,10 +62,14 @@
           <a class="py-2 d-none d-md-inline-block" href="#" style="color: white">Categorías</a>
           <a class="py-2 d-none d-md-inline-block" href="#" style="color: white">Contacto</a>
     
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <!-- <form class="d-flex">
+            <input placeholder="Buscar..." class="input" name="q" type="text" value="{{ query }}">
+            <a class="btn btn-outline-success" type="submit" href="{%url 'buscar' %}">Buscar</a>
+          </form> -->
+          <form method="GET" action="{% url 'buscar' %}" class="mt-3">
+            <input placeholder="Buscar..." class="input" name="q" type="text" value="{{ query }}">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
-          </form>
+        </form>
         
     
           <a class="py-2 d-none d-md-inline-block" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" href="#"

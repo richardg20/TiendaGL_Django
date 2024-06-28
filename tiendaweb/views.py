@@ -351,5 +351,17 @@ def modclientes(request, cliente_rut):
         return redirect('acliente') 
     else:
         return HttpResponse('Error: Se requiere una solicitud POST')
+
+def buscar(request):
+    query = request.GET.get('q', '')
+    productos = []
+    if query:
+        productos = Producto.objects.filter(nombre__icontains=query)
+
+    context = {
+        'productos': productos,
+        'query': query,
+    }
+    return render(request, 'buscar.htmL', context)
  
 

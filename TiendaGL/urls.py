@@ -51,5 +51,6 @@ urlpatterns = [
 
     path('administrador/boleta', views.boletas, name='boletas'),    
     path('login/', LoginSystem.as_view(), name='login'),
+    path('buscar/',views.buscar, name='buscar'),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
