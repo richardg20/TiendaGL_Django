@@ -43,14 +43,16 @@ urlpatterns = [
     path('administrador/cliente', views.acliente, name='acliente'),
     path('administrador/cliente/add', views.addcliente, name='addcliente'),
     path('administrador/cliente/adds', views.add_cliente, name='add_cliente'),
-    path('administrador/cliente/eliminar/<int:cliente_rut>/', views.eliminar_cliente, name='eliminar_cliente'),
-    path('administrador/cliente/modificar/<int:cliente_rut>/', views.alterclientes, name='modificar_cliente'),
-    path('administrador/cliente/modificar/<int:cliente_rut>/success', views.modclientes, name='mod_cliente'),
+    path('administrador/cliente/eliminar/<str:cliente_rut>/', views.eliminar_cliente, name='eliminar_cliente'),
+    path('administrador/cliente/modificar/<str:cliente_rut>/', views.alterclientes, name='modificar_cliente'),
+    path('administrador/cliente/modificar/<str:cliente_rut>/success', views.modclientes, name='mod_cliente'),
 
     
-
+    path('buscar/',views.buscar, name='buscar'),
     path('administrador/boleta', views.boletas, name='boletas'),    
     path('login/', LoginSystem.as_view(), name='login'),
-    path('buscar/',views.buscar, name='buscar'),
+    path('registro/', views.registro, name='registro'),
+    path('inicio_sesion/', views.inicio_sesion, name='inicio_sesion'),
+    path('logout/', views.cerrar_sesion, name='cerrar_sesion'),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

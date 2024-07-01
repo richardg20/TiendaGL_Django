@@ -14,6 +14,10 @@ import random
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import datetime as dt
+from django.contrib.auth import authenticate, login, logout
+#IP de los formularios
+from .forms import ClienteCreationForm , LoginForm
+
 
 #from webpay_plus import bp
 
@@ -36,9 +40,6 @@ def dproductos(request, id):
 def productos(request):
     return render(request, 'dpro.html')
   
-
-def registro(request):
-    return render(request, 'regi2.html')
 
 def productos(request):
     productos = Producto.objects.all()
@@ -351,6 +352,43 @@ def modclientes(request, cliente_rut):
         return redirect('acliente') 
     else:
         return HttpResponse('Error: Se requiere una solicitud POST')
+ 
+# Registro de usuario y Inicio de sesion
+def registro(request):
+    if request.method == 'POST':
+        form = ClienteCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inicio_sesion')
+    else:
+        form = ClienteCreationForm()
+    return render(request, 'regi2.html', {'form': form})
+
+def inicio_sesion(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            rut = form.cleaned_data['rut']
+            password = form.cleaned_data['password']
+            
+            cliente = authenticate(request, username=rut, password=password)
+            if cliente is not None:
+                login(request, cliente)
+                request.session['nombre_cliente'] = cliente.nombre  
+                return redirect('home')
+            else:
+                context = {'form': LoginForm(), 'error': 'Credenciales inválidas. Intente nuevamente.'}
+                return render(request, 'login.html', context)
+        else:
+            context = {'form': form}
+            return render(request, 'login.html', context)
+    else:
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+    
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('login')
 
 def buscar(request):
     query = request.GET.get('q', '')
@@ -363,5 +401,3 @@ def buscar(request):
         'query': query,
     }
     return render(request, 'buscar.htmL', context)
- 
-

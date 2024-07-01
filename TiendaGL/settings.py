@@ -140,3 +140,5 @@ MEDIA_URL = 'media/'
 
 LOGIN_REDIRECT_URL = 'administrador' 
 
+AUTH_USER_MODEL = 'tiendaweb.Cliente'
+
